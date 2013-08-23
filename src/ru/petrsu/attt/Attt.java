@@ -13,6 +13,7 @@ import ru.petrsu.attt.screens.SplashScreen;
 public class Attt extends Game {
     @Override
     public void create() {
+        Assets.load();
         setScreen(new SplashScreen(this));
     }
 }

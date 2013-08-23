@@ -23,10 +23,10 @@ public class Picture {
 }
     int screenWidth = Assets.screenWidth;
     int screenHeight = Assets.screenHeight;
-    private float width;
-    private float height;
-    private int x = 0;
-    private int y = 0;
+    public float width;
+    public float height;
+    public int x = 0;
+    public int y = 0;
 
     Sprite sprite;
 

@@ -33,7 +33,6 @@ public class SplashScreen implements Screen, TweenCallback {
     public SplashScreen(Game game) {
         this.game = game;
         spriteBatch = new SpriteBatch();
-        Assets.load();
     }
 
 

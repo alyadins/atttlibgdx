@@ -5,50 +5,71 @@ filter: Nearest,Nearest
 repeat: none
 logo
   rotate: false
-  xy: 1, 553
+  xy: 1, 691
   size: 591, 265
   orig: 591, 265
   offset: 0, 0
   index: -1
 help
   rotate: false
-  xy: 1, 415
+  xy: 1, 553
   size: 461, 136
   orig: 461, 136
   offset: 0, 0
   index: -1
 highscores
   rotate: false
-  xy: 1, 277
+  xy: 1, 415
   size: 461, 136
   orig: 461, 136
   offset: 0, 0
   index: -1
 start
   rotate: false
+  xy: 1, 277
+  size: 461, 136
+  orig: 461, 136
+  offset: 0, 0
+  index: -1
+highscores_pressed
+  rotate: false
   xy: 1, 139
+  size: 461, 136
+  orig: 461, 136
+  offset: 0, 0
+  index: -1
+help_pressed
+  rotate: false
+  xy: 1, 1
   size: 461, 136
   orig: 461, 136
   offset: 0, 0
   index: -1
 speaker_off
   rotate: false
-  xy: 594, 682
+  xy: 594, 820
   size: 136, 136
   orig: 136, 136
   offset: 0, 0
   index: -1
 settings
   rotate: false
-  xy: 1, 1
+  xy: 732, 820
   size: 136, 136
   orig: 136, 136
   offset: 0, 0
   index: -1
 speaker_on
   rotate: false
-  xy: 732, 682
+  xy: 870, 820
   size: 136, 136
   orig: 136, 136
+  offset: 0, 0
+  index: -1
+start_pressed
+  rotate: false
+  xy: 464, 553
+  size: 461, 136
+  orig: 461, 136
   offset: 0, 0
   index: -1
