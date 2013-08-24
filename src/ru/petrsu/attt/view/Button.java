@@ -1,12 +1,13 @@
-package ru.petrsu.attt.util;
+package ru.petrsu.attt.view;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Button extends Picture {
-    TextureRegion normal;
-    TextureRegion clicked = null;
-    public boolean clickable;
+    private TextureRegion normal;
+    private TextureRegion clicked = null;
+    private Sound sound = null;
 
     public Button(TextureRegion texture) {
         super(texture);
@@ -17,12 +18,10 @@ public class Button extends Picture {
         super(normal);
         this.normal = normal;
         this.clicked = clicked;
-        clickable = true;
     }
 
     public void setClickedTexture(TextureRegion texture) {
         this.clicked = texture;
-        clickable = true;
     }
 
     public void setNormalTexture(TextureRegion texture) {
@@ -41,5 +40,15 @@ public class Button extends Picture {
 
     public void setNormal() {
         sprite.setRegion(normal);
+    }
+
+    public void setSound(Sound sound) {
+        this.sound = sound;
+    }
+
+    public void playSound() {
+        if (sound != null) {
+            sound.play(1);
+        }
     }
 }

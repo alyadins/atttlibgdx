@@ -89,7 +89,7 @@ public class Assets {
         return texture;
     }
 
-    public static boolean inBounds(int inputX, int inputY, int x, int y, int width, int height) {
+    public static boolean inBounds(int inputX, int inputY, float x, float y, float width, float height) {
         return inputX > x && inputX < x + width - 1 &&
                 inputY > y && inputY < y + height - 1;
     }

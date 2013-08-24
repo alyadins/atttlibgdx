@@ -1,10 +1,9 @@
 package ru.petrsu.attt.input;
 
-import android.util.Log;
 import com.badlogic.gdx.InputProcessor;
 import ru.petrsu.attt.Assets;
 import ru.petrsu.attt.Settings;
-import ru.petrsu.attt.util.Button;
+import ru.petrsu.attt.view.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class ButtonsInputProcessor implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         int clickedY = screenHeight - screenY;
         for (Button i : buttons) {
-            if (Assets.inBounds(screenX, clickedY, i.x, i.y, (int) i.width, (int) i.height)) {
+            if (Assets.inBounds(screenX, clickedY, i.x, i.y, i.width, i.height)) {
                 i.setClicked();
             }
         }
@@ -56,13 +55,13 @@ public class ButtonsInputProcessor implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         int clickedY = screenHeight - screenY;
         for (Button i : buttons) {
-            if (Assets.inBounds(screenX, clickedY, i.x, i.y, (int) i.width, (int) i.height)) {
+            if (Assets.inBounds(screenX, clickedY, i.x, i.y, i.width, i.height)) {
                 onClickListener.onClick(i);
+                if (Settings.isSoundEnabled()) {
+                    i.playSound();
+                }
             }
             i.setNormal();
-        }
-        if (Settings.isSoundEnabled()) {
-            Assets.click.play(1);
         }
         return true;
     }

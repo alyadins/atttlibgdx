@@ -1,7 +1,7 @@
 package ru.petrsu.attt.tween;
 
 import aurelienribon.tweenengine.TweenAccessor;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import ru.petrsu.attt.view.Picture;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,14 +10,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Time: 7:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SpriteAccessor implements TweenAccessor<Sprite> {
+public class SpriteAccessor implements TweenAccessor<Picture> {
 
     public static final int ALPHA = 0;
     @Override
-    public int getValues(Sprite sprite, int i, float[] floats) {
+    public int getValues(Picture picture, int i, float[] floats) {
         switch (i) {
             case ALPHA:
-                floats[0] = sprite.getColor().a;
+                floats[0] = picture.sprite.getColor().a;
                 return  1;
             default:
                 assert false;
@@ -26,12 +26,12 @@ public class SpriteAccessor implements TweenAccessor<Sprite> {
     }
 
     @Override
-    public void setValues(Sprite sprite, int i, float[] floats) {
+    public void setValues(Picture picture, int i, float[] floats) {
         switch (i) {
             case ALPHA:
-                sprite.setColor(sprite.getColor().r,
-                        sprite.getColor().g,
-                        sprite.getColor().b,
+                picture.sprite.setColor(picture.sprite.getColor().r,
+                        picture.sprite.getColor().g,
+                        picture.sprite.getColor().b,
                         floats[0]);
                 break;
             default:

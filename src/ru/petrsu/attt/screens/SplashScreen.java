@@ -8,12 +8,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
 import ru.petrsu.attt.tween.SpriteAccessor;
+import ru.petrsu.attt.view.Picture;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +24,7 @@ import ru.petrsu.attt.tween.SpriteAccessor;
 public class SplashScreen implements Screen, TweenCallback {
     private final static float LOGO_WIDTH = 0.8f;
     private SpriteBatch spriteBatch;
-    private Sprite logo;
+    private Picture logo;
     private Sprite background;
     private TweenManager tweenManager;
     Game game;
@@ -82,11 +81,9 @@ public class SplashScreen implements Screen, TweenCallback {
     }
 
     private void showLogo() {
-        logo = new Sprite(Assets.logo);
-        float logoWidth = Gdx.graphics.getWidth() * LOGO_WIDTH;
-        float logoHeight = logoWidth * (logo.getHeight() / logo.getWidth());
-        logo.setPosition(Gdx.graphics.getWidth() / 2 - logoWidth/ 2, Gdx.graphics.getHeight() / 2 - logoHeight/ 2);
-        logo.setSize(logoWidth, logoHeight);
+        logo = new Picture(Assets.logo);
+        logo.setPosition(Picture.Position.CENTER_HORIZONTAL);
+        logo.setPosition(Picture.Position.CENTER_VERTICAL);
     }
 
     private void showBackground() {
@@ -96,7 +93,7 @@ public class SplashScreen implements Screen, TweenCallback {
 
     private void setTween() {
         tweenManager = new TweenManager();
-        Tween.registerAccessor(Sprite.class, new SpriteAccessor());
+        Tween.registerAccessor(Picture.class, new SpriteAccessor());
         Tween.set(logo, SpriteAccessor.ALPHA).target(0).start(tweenManager);
         Tween.to(logo, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, 0).setCallback(this).start(tweenManager);
     }
