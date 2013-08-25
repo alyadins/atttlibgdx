@@ -1,18 +1,11 @@
 package ru.petrsu.attt;
 
-import android.preference.Preference;
-import android.util.Log;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +31,8 @@ public class Assets {
     public static TextureRegion highcoresPressed;
     public static TextureRegion startPressed;
     public static TextureRegion helpPressed;
+    public static TextureRegion big_field;
+    public static TextureRegion small_feild;
 
     //fonts
     public static BitmapFont textFont;
@@ -75,6 +70,8 @@ public class Assets {
         startPressed = atlas.findRegion("start_pressed");
         highcoresPressed = atlas.findRegion("highscores_pressed");
         helpPressed = atlas.findRegion("help_pressed");
+        big_field = atlas.findRegion("big_field");
+        small_feild = atlas.findRegion("small_field");
     }
 
     private static void loadFonts() {

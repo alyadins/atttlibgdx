@@ -18,7 +18,7 @@ public class Picture extends View{
     public Picture(TextureRegion texture) {
         super(Assets.screenWidth, Assets.screenHeight);
         sprite = new Sprite(texture);
-        calculateSizes(sprite.getWidth(), sprite.getHeight());
+        setSize(sprite.getWidth(), sprite.getHeight());
     }
 
     @Override

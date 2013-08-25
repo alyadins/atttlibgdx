@@ -1,6 +1,10 @@
 package ru.petrsu.attt.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import ru.petrsu.attt.Assets;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Time: 2:19 PM
  * To change this template use File | Settings | File Templates.
  */
-public class View {
+public abstract class View {
     public enum Position {
         LEFT,
         RIGHT,
@@ -23,25 +27,35 @@ public class View {
     public float height;
     public float x = 0;
     public float y = 0;
-    private int screenWidth;
-    private int screenHeight;
+    private int screenWidth = Gdx.graphics.getWidth();
+    private int screenHeight = Gdx.graphics.getHeight();
 
-    public View(int screenWidth, int screenHeight) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+    public View(float width, float height) {
+        setSize(width, height);
     }
 
     /**
      * calculate sizes from 1280*720
-     * @param oldWidth width in 1280*720
-     * @param oldHeight height in 1280*720
+     * @param width width in 1280*720
+     * @param height height in 1280*720
      */
-    protected void calculateSizes(float oldWidth, float oldHeight) {
-        width = screenWidth / 720.0f * oldWidth;
-        height = width * (oldHeight / oldWidth);
+    protected void setSize(float width, float height) {
+        this.width = screenWidth / 720.0f * width;
+        this.height = this.width * (height / width);
     }
 
-    public void setPosition(int x, int y) {
+    protected void setAbsoluteSize(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public static void calculateSpriteSizes(Sprite sprite) {
+        float width = Gdx.graphics.getWidth() / 720.0f * sprite.getWidth();
+        float height = width * (sprite.getHeight() / sprite.getWidth());
+        sprite.setSize(width, height);
+    }
+
+    public void setPosition(float x, float y) {
         setX(x);
         setY(y);
     }
@@ -76,7 +90,5 @@ public class View {
         this.y =  y;
     }
 
-    public void draw(SpriteBatch spriteBatch){
-
-    }
+    public abstract void draw(SpriteBatch spriteBatch);
 }

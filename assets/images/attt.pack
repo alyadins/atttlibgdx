@@ -3,27 +3,67 @@ attt.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+big_field
+  rotate: false
+  xy: 1, 406
+  size: 603, 603
+  orig: 603, 603
+  offset: 0, 0
+  index: -1
 logo
   rotate: false
-  xy: 1, 691
+  xy: 1, 139
   size: 591, 265
   orig: 591, 265
   offset: 0, 0
   index: -1
 help
   rotate: false
-  xy: 1, 553
+  xy: 1, 1
   size: 461, 136
   orig: 461, 136
+  offset: 0, 0
+  index: -1
+small_field
+  rotate: false
+  xy: 606, 808
+  size: 201, 201
+  orig: 201, 201
+  offset: 0, 0
+  index: -1
+speaker_off
+  rotate: false
+  xy: 606, 670
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 809, 873
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+speaker_on
+  rotate: false
+  xy: 606, 532
+  size: 136, 136
+  orig: 136, 136
   offset: 0, 0
   index: -1
 highscores
   rotate: false
-  xy: 1, 415
+  xy: 464, 1
   size: 461, 136
   orig: 461, 136
   offset: 0, 0
   index: -1
+
+attt2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 start
   rotate: false
   xy: 1, 277
@@ -40,35 +80,14 @@ highscores_pressed
   index: -1
 help_pressed
   rotate: false
-  xy: 1, 1
+  xy: 464, 277
   size: 461, 136
   orig: 461, 136
   offset: 0, 0
   index: -1
-speaker_off
-  rotate: false
-  xy: 594, 820
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
-settings
-  rotate: false
-  xy: 732, 820
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
-speaker_on
-  rotate: false
-  xy: 870, 820
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
 start_pressed
   rotate: false
-  xy: 464, 553
+  xy: 1, 1
   size: 461, 136
   orig: 461, 136
   offset: 0, 0

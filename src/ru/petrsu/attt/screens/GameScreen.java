@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
 import ru.petrsu.attt.input.ButtonsInputProcessor;
+import ru.petrsu.attt.model.FieldModel;
 import ru.petrsu.attt.view.Button;
 import ru.petrsu.attt.view.Field;
 import ru.petrsu.attt.view.Picture;
+import ru.petrsu.attt.view.View;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,6 +43,7 @@ public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener
         spriteBatch.begin();
         background.draw(spriteBatch);
         backButton.draw(spriteBatch);
+        field.draw(spriteBatch);
         spriteBatch.end();
     }
 
@@ -52,6 +55,10 @@ public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener
     public void show() {
         background = new Sprite(Assets.background);
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        field = new Field(new FieldModel(), new Sprite(Assets.big_field));
+        field.setPosition(View.Position.CENTER_VERTICAL);
+        field.setPosition(View.Position.CENTER_HORIZONTAL);
 
         backButton = new Button(Assets.settingsButton);
         backButton.setPosition(Picture.Position.BOTTOM);
