@@ -23,11 +23,12 @@ public class Picture extends View{
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        updateSprite();
+        update(1);
         sprite.draw(spriteBatch);
     }
 
-    private void updateSprite() {
+    @Override
+    public void update(float delta) {
         sprite.setPosition(x, y);
         sprite.setSize(width, height);
     }

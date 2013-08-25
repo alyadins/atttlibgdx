@@ -59,6 +59,20 @@ highscores
   orig: 461, 136
   offset: 0, 0
   index: -1
+cros
+  rotate: false
+  xy: 947, 942
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+zero
+  rotate: false
+  xy: 606, 463
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
 
 attt2.png
 format: RGBA8888

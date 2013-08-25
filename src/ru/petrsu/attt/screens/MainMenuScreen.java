@@ -27,6 +27,7 @@ public class MainMenuScreen implements Screen, ButtonsInputProcessor.OnClickList
     private Button soundButton;
     private Button settingsButton;
 
+
     private ButtonsInputProcessor inputProcessor;
 
     public MainMenuScreen(Game game) {

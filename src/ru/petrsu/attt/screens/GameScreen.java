@@ -3,6 +3,7 @@ package ru.petrsu.attt.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,6 +14,8 @@ import ru.petrsu.attt.view.Button;
 import ru.petrsu.attt.view.Field;
 import ru.petrsu.attt.view.Picture;
 import ru.petrsu.attt.view.View;
+
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,7 +31,6 @@ public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener
     private ButtonsInputProcessor inputProcessor;
     private SpriteBatch spriteBatch;
     private Field field;
-
     public GameScreen(Game game) {
         this.game = game;
         inputProcessor = new ButtonsInputProcessor();
@@ -40,6 +42,7 @@ public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener
     @Override
     public void render(float delta) {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        field.update(delta);
         spriteBatch.begin();
         background.draw(spriteBatch);
         backButton.draw(spriteBatch);

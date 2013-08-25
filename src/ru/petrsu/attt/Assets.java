@@ -1,6 +1,7 @@
 package ru.petrsu.attt;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,6 +34,8 @@ public class Assets {
     public static TextureRegion helpPressed;
     public static TextureRegion big_field;
     public static TextureRegion small_feild;
+    public static TextureRegion cros;
+    public static TextureRegion zero;
 
     //fonts
     public static BitmapFont textFont;
@@ -72,6 +75,8 @@ public class Assets {
         helpPressed = atlas.findRegion("help_pressed");
         big_field = atlas.findRegion("big_field");
         small_feild = atlas.findRegion("small_field");
+        cros = atlas.findRegion("cros");
+        zero = atlas.findRegion("zero");
     }
 
     private static void loadFonts() {
