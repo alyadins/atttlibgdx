@@ -24,34 +24,6 @@ help
   orig: 461, 136
   offset: 0, 0
   index: -1
-small_field
-  rotate: false
-  xy: 606, 808
-  size: 201, 201
-  orig: 201, 201
-  offset: 0, 0
-  index: -1
-speaker_off
-  rotate: false
-  xy: 606, 670
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
-settings
-  rotate: false
-  xy: 809, 873
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
-speaker_on
-  rotate: false
-  xy: 606, 532
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
 highscores
   rotate: false
   xy: 464, 1
@@ -59,18 +31,60 @@ highscores
   orig: 461, 136
   offset: 0, 0
   index: -1
+big_cros
+  rotate: false
+  xy: 594, 203
+  size: 201, 201
+  orig: 201, 201
+  offset: 0, 0
+  index: -1
 cros
   rotate: false
-  xy: 947, 942
+  xy: 927, 942
   size: 67, 67
   orig: 67, 67
   offset: 0, 0
   index: -1
 zero
   rotate: false
-  xy: 606, 463
+  xy: 927, 873
   size: 67, 67
   orig: 67, 67
+  offset: 0, 0
+  index: -1
+big_zero
+  rotate: false
+  xy: 797, 670
+  size: 201, 201
+  orig: 201, 201
+  offset: 0, 0
+  index: -1
+speaker_off
+  rotate: false
+  xy: 606, 873
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 744, 873
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+small_field
+  rotate: false
+  xy: 606, 467
+  size: 201, 201
+  orig: 201, 201
+  offset: 0, 0
+  index: -1
+speaker_on
+  rotate: false
+  xy: 606, 735
+  size: 136, 136
+  orig: 136, 136
   offset: 0, 0
   index: -1
 

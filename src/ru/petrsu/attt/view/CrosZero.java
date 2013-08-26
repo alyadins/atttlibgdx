@@ -51,6 +51,11 @@ public class CrosZero extends View {
         this.color = color;
     }
 
+    public void setSprites(Sprite cros, Sprite zero) {
+        this.cros = cros;
+        this.zero = zero;
+    }
+
     public void setType(Type type) {
         switch (type) {
             case CROS:

@@ -8,15 +8,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
-import ru.petrsu.attt.Settings;
 import ru.petrsu.attt.input.MyInputProcessor;
 import ru.petrsu.attt.input.MyInputProcessor.ButtonClickListener;
 import ru.petrsu.attt.input.MyInputProcessor.FieldClickListener;
 import ru.petrsu.attt.model.FieldModel;
-import ru.petrsu.attt.view.Button;
-import ru.petrsu.attt.view.Field;
-import ru.petrsu.attt.view.Picture;
-import ru.petrsu.attt.view.View;
+import ru.petrsu.attt.model.SmallFieldModel;
+import ru.petrsu.attt.view.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,10 +24,15 @@ import ru.petrsu.attt.view.View;
  */
 public class GameScreen implements Screen {
     private Game game;
+    private SpriteBatch spriteBatch;
+
     private Sprite background;
     private Button backButton;
-    private SpriteBatch spriteBatch;
+
+    private ZoomedField zoomedField;
     private Field field;
+    private FieldModel model = new FieldModel();
+
     private MyInputProcessor inputProcessor = new MyInputProcessor();
 
     public GameScreen(Game game) {
@@ -61,11 +63,12 @@ public class GameScreen implements Screen {
         background = new Sprite(Assets.background);
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        field = new Field(new FieldModel(), new Sprite(Assets.big_field));
+        Sprite sprite = new Sprite(Assets.bigField);
+        View.calculateSpriteSizes(sprite);
+        field = new Field(model, sprite);
         field.setPosition(View.Position.CENTER_VERTICAL);
         field.setPosition(View.Position.CENTER_HORIZONTAL);
-        field.setInputProcessor(inputProcessor);
-        //inputProcessor.addView(field);
+        inputProcessor.addView(field);
 
         backButton = new Button(Assets.settingsButton);
         backButton.setPosition(Picture.Position.BOTTOM);
@@ -111,7 +114,17 @@ public class GameScreen implements Screen {
     private FieldClickListener fieldClickListener = new FieldClickListener() {
         @Override
         public void onClick(View view, int row, int column) {
-            Log.d("TEST", "row: " + String.valueOf(row) + " column: " + String.valueOf(column));
+//            if (model.activeField != null) {
+//                int activeRow = (int) model.activeField.x;
+//                int activeColumn = (int) model.activeField.y;
+//                if (activeRow != row && activeColumn != column) {
+//                    field.smallFields.get(activeRow * 3 + activeColumn).blink();
+//                } else {
+//                    model.update(row, column);
+//                }
+//            } else {
+//                model.update(row, column);
+//            }
         }
     };
 }

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import ru.petrsu.attt.input.MyInputProcessor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,10 +31,12 @@ public class Assets {
     public static TextureRegion highcoresPressed;
     public static TextureRegion startPressed;
     public static TextureRegion helpPressed;
-    public static TextureRegion big_field;
-    public static TextureRegion small_feild;
+    public static TextureRegion bigField;
+    public static TextureRegion smallFeild;
     public static TextureRegion cros;
     public static TextureRegion zero;
+    public static TextureRegion bigCros;
+    public static TextureRegion bigZero;
 
     //fonts
     public static BitmapFont textFont;
@@ -72,10 +73,12 @@ public class Assets {
         startPressed = atlas.findRegion("start_pressed");
         highcoresPressed = atlas.findRegion("highscores_pressed");
         helpPressed = atlas.findRegion("help_pressed");
-        big_field = atlas.findRegion("big_field");
-        small_feild = atlas.findRegion("small_field");
+        bigField = atlas.findRegion("big_field");
+        smallFeild = atlas.findRegion("small_field");
         cros = atlas.findRegion("cros");
         zero = atlas.findRegion("zero");
+        bigCros = atlas.findRegion("big_cros");
+        bigZero = atlas.findRegion("big_zero");
     }
 
     private static void loadFonts() {

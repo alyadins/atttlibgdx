@@ -14,7 +14,7 @@ public class Field extends View {
     FieldModel model;
     Sprite field;
     Sprite smallField;
-    List<SmallField> smallFields;
+    public List<SmallField> smallFields;
 
 
     private MyInputProcessor inputProcessor = null;
@@ -29,7 +29,7 @@ public class Field extends View {
     }
 
     private void initSmallFields() {
-        smallField = new Sprite(Assets.small_feild);
+        smallField = new Sprite(Assets.smallFeild);
         smallFields = new ArrayList<SmallField>();
         for (int i = 0; i < 9; i++) {
             smallFields.add(new SmallField(model.smallFieldModels.get(i), width / 3, height / 3));
@@ -51,8 +51,8 @@ public class Field extends View {
         field.setSize(width, height);
         for (int i = 0; i < 9; i++) {
             SmallField sf = smallFields.get(i);
-            sf.setPosition(x + (width / 3) * (i / 3),
-                    y + (height / 3) * (i % 3));
+            sf.setPosition(x + (width / 3) * (i % 3),
+                    y + (height / 3) * (2 - (i / 3)));
             sf.setAbsoluteSize(width / 3, height / 3);
             sf.update(delta);
         }
