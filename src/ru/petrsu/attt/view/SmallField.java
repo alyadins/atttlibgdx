@@ -26,6 +26,7 @@ public class SmallField extends View {
 
     public SmallField(SmallFieldModel model, float width, float height) {
         super(width, height);
+        this.type = Type.FIELD;
         smallField = new Sprite(Assets.small_feild);
         calculateSpriteSizes(smallField);
         crosZeros = new ArrayList<CrosZero>();

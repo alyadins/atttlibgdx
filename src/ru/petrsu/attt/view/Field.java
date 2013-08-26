@@ -1,15 +1,14 @@
 package ru.petrsu.attt.view;
 
-import android.util.Log;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
+import ru.petrsu.attt.input.MyInputProcessor;
 import ru.petrsu.attt.model.FieldModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Field extends View {
     FieldModel model;
@@ -17,10 +16,14 @@ public class Field extends View {
     Sprite smallField;
     List<SmallField> smallFields;
 
+
+    private MyInputProcessor inputProcessor = null;
+
     public Field(FieldModel model, Sprite fieldSprite) {
         super(fieldSprite.getWidth(), fieldSprite.getHeight());
         this.model = model;
         this.field = fieldSprite;
+        this.type = Type.FIELD;
         setSize(field.getWidth(), field.getHeight());
         initSmallFields();
     }
@@ -52,6 +55,14 @@ public class Field extends View {
                     y + (height / 3) * (i % 3));
             sf.setAbsoluteSize(width / 3, height / 3);
             sf.update(delta);
+        }
+    }
+
+
+    public void setInputProcessor(MyInputProcessor inputProcessor) {
+        this.inputProcessor = inputProcessor;
+        for (SmallField i : smallFields) {
+            inputProcessor.addView(i);
         }
     }
 }

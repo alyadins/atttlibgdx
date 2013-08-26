@@ -9,14 +9,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
 import ru.petrsu.attt.Settings;
-import ru.petrsu.attt.input.ButtonsInputProcessor;
+import ru.petrsu.attt.input.MyInputProcessor;
+import ru.petrsu.attt.input.MyInputProcessor.ButtonClickListener;
 import ru.petrsu.attt.view.Button;
 import ru.petrsu.attt.view.Picture;
-import ru.petrsu.attt.view.View.Position;
 import ru.petrsu.attt.view.View;
+import ru.petrsu.attt.view.View.Position;
 
 
-public class MainMenuScreen implements Screen, ButtonsInputProcessor.OnClickListener {
+public class MainMenuScreen implements Screen {
     Game game;
     private SpriteBatch spriteBatch;
     private Picture logo;
@@ -27,14 +28,12 @@ public class MainMenuScreen implements Screen, ButtonsInputProcessor.OnClickList
     private Button soundButton;
     private Button settingsButton;
 
-
-    private ButtonsInputProcessor inputProcessor;
+    private MyInputProcessor inputProcessor = new MyInputProcessor();
 
     public MainMenuScreen(Game game) {
         this.game = game;
         spriteBatch = new SpriteBatch();
-        inputProcessor = new ButtonsInputProcessor();
-        inputProcessor.setOnClickListener(this);
+        inputProcessor.setButtonClickListener(buttonClickListener);
         Gdx.input.setInputProcessor(inputProcessor);
     }
 
@@ -92,33 +91,33 @@ public class MainMenuScreen implements Screen, ButtonsInputProcessor.OnClickList
         //start button
         startButton = new Button(Assets.startButton);
         startButton.setPosition(Position.CENTER_VERTICAL);
-        startButton.setY(Assets.heightRatio * 742);
+        startButton.setY(Assets.heightRatio * 662);
         startButton.setClickedTexture(Assets.startPressed);
         startButton.setSound(Assets.click);
-        inputProcessor.addButton(startButton);
+        inputProcessor.addView(startButton);
 
         //high scores button
         highscoresButton = new Button(Assets.highscoresButton);
         highscoresButton.setPosition(Position.CENTER_VERTICAL);
-        highscoresButton.setY(Assets.heightRatio * 560);
+        highscoresButton.setY(Assets.heightRatio * 480);
         highscoresButton.setClickedTexture(Assets.highcoresPressed);
         highscoresButton.setSound(Assets.click);
-        inputProcessor.addButton(highscoresButton);
+        inputProcessor.addView(highscoresButton);
 
         //help button
         helpButton = new Button(Assets.helpButton);
         helpButton.setPosition(Position.CENTER_VERTICAL);
-        helpButton.setY(Assets.heightRatio * 382);
+        helpButton.setY(Assets.heightRatio * 302);
         helpButton.setClickedTexture(Assets.helpPressed);
         helpButton.setSound(Assets.click);
-        inputProcessor.addButton(helpButton);
+        inputProcessor.addView(helpButton);
 
         //settings button
         settingsButton = new Button(Assets.settingsButton);
         settingsButton.setPosition(Position.BOTTOM);
         settingsButton.setPosition(Position.RIGHT);
         settingsButton.setSound(Assets.click);
-        inputProcessor.addButton(settingsButton);
+        inputProcessor.addView(settingsButton);
 
         //sound button
         if (Settings.isSoundEnabled()) {
@@ -129,7 +128,7 @@ public class MainMenuScreen implements Screen, ButtonsInputProcessor.OnClickList
         soundButton.setPosition(Position.BOTTOM);
         soundButton.setPosition(Position.LEFT);
         soundButton.setSound(Assets.click);
-        inputProcessor.addButton(soundButton);
+        inputProcessor.addView(soundButton);
     }
 
     private void drawButtons() {
@@ -140,26 +139,62 @@ public class MainMenuScreen implements Screen, ButtonsInputProcessor.OnClickList
         settingsButton.draw(spriteBatch);
     }
 
-    @Override
-    public void onClick(Button button) {
-        if (button.equals(startButton)) {
-            game.setScreen(new GameScreen(game));
-        }
-        if (button.equals(highscoresButton)) {
-            Log.d("TEST", "highscores");
-        }
-        if (button.equals(helpButton)) {
-        }
-        if (button.equals(settingsButton)) {
-            Log.d("TEST", "settings");
-        }
-        if (button.equals(soundButton)) {
-            Settings.setSoundEnabled(!Settings.isSoundEnabled());
-            if (Settings.isSoundEnabled()) {
-                soundButton.setNormalTexture(Assets.soundOnButton);
+
+    private ButtonClickListener buttonClickListener = new ButtonClickListener() {
+        @Override
+        public void touchUp(View view) {
+            if (view != null) {
+                if (view.id == startButton.id) {
+                    startButton.playSound();
+                    game.setScreen(new GameScreen(game));
+                }
+
+                if (view.id == highscoresButton.id) {
+                     highscoresButton.playSound();
+                    Log.d("TEST", "highscores");
+                }
+
+                if (view.id == helpButton.id) {
+                    helpButton.playSound();
+                    Log.d("TEST", "help");
+                }
+
+                if (view.id == settingsButton.id) {
+                    settingsButton.playSound();
+                    Log.d("TEST", "settings");
+                }
+
+                if (view.id == soundButton.id) {
+                    soundButton.playSound();
+                    Settings.setSoundEnabled(!Settings.isSoundEnabled());
+                    if (Settings.isSoundEnabled()) {
+                        soundButton.setNormalTexture(Assets.soundOnButton);
+                    } else {
+                        soundButton.setNormalTexture(Assets.soundOffButton);
+                    }
+                }
             } else {
-                soundButton.setNormalTexture(Assets.soundOffButton);
+                startButton.setNormal();
+                highscoresButton.setNormal();
+                helpButton.setNormal();
+                settingsButton.setNormal();
+                soundButton.setNormal();
             }
         }
-    }
+
+        @Override
+        public void touchDown(View view) {
+            if (view.id == startButton.id) {
+                startButton.setClicked();
+            }
+
+            if (view.id == highscoresButton.id) {
+                highscoresButton.setClicked();
+            }
+
+            if (view.id == helpButton.id) {
+                helpButton.setClicked();
+            }
+        }
+    };
 }

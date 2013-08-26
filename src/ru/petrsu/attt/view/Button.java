@@ -3,15 +3,16 @@ package ru.petrsu.attt.view;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import ru.petrsu.attt.Settings;
 
 public class Button extends Picture {
     private TextureRegion normal;
     private TextureRegion clicked = null;
     private Sound sound = null;
-
     public Button(TextureRegion texture) {
         super(texture);
         this.normal = texture;
+        this.type = Type.BUTTON;
     }
 
     public Button(TextureRegion normal, TextureRegion clicked) {
@@ -47,7 +48,7 @@ public class Button extends Picture {
     }
 
     public void playSound() {
-        if (sound != null) {
+        if (sound != null && Settings.isSoundEnabled()) {
             sound.play(1);
         }
     }

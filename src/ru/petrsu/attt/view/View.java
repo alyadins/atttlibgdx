@@ -23,15 +23,27 @@ public abstract class View {
         CENTER_HORIZONTAL
     }
 
+    public enum Type {
+        BUTTON,
+        FIELD,
+        PICTURE,
+        VIEW
+    }
+
     public float width;
     public float height;
     public float x = 0;
     public float y = 0;
+    public Type type = Type.VIEW;
+    private static int idCounter = 0;
+    public  int id;
     private int screenWidth = Gdx.graphics.getWidth();
     private int screenHeight = Gdx.graphics.getHeight();
 
     public View(float width, float height) {
         setSize(width, height);
+        id = idCounter;
+        idCounter++;
     }
 
     /**

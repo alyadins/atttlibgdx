@@ -1,21 +1,22 @@
 package ru.petrsu.attt.screens;
 
+import android.util.Log;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
-import ru.petrsu.attt.input.ButtonsInputProcessor;
+import ru.petrsu.attt.Settings;
+import ru.petrsu.attt.input.MyInputProcessor;
+import ru.petrsu.attt.input.MyInputProcessor.ButtonClickListener;
+import ru.petrsu.attt.input.MyInputProcessor.FieldClickListener;
 import ru.petrsu.attt.model.FieldModel;
 import ru.petrsu.attt.view.Button;
 import ru.petrsu.attt.view.Field;
 import ru.petrsu.attt.view.Picture;
 import ru.petrsu.attt.view.View;
-
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,18 +25,19 @@ import java.util.Random;
  * Time: 1:09 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener {
+public class GameScreen implements Screen {
     private Game game;
     private Sprite background;
     private Button backButton;
-    private ButtonsInputProcessor inputProcessor;
     private SpriteBatch spriteBatch;
     private Field field;
+    private MyInputProcessor inputProcessor = new MyInputProcessor();
+
     public GameScreen(Game game) {
         this.game = game;
-        inputProcessor = new ButtonsInputProcessor();
-        inputProcessor.setOnClickListener(this);
         spriteBatch = new SpriteBatch();
+        inputProcessor.setButtonClickListener(buttonClickListener);
+        inputProcessor.setFieldClickListener(fieldClickListener);
         Gdx.input.setInputProcessor(inputProcessor);
     }
 
@@ -62,11 +64,14 @@ public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener
         field = new Field(new FieldModel(), new Sprite(Assets.big_field));
         field.setPosition(View.Position.CENTER_VERTICAL);
         field.setPosition(View.Position.CENTER_HORIZONTAL);
+        field.setInputProcessor(inputProcessor);
+        //inputProcessor.addView(field);
 
         backButton = new Button(Assets.settingsButton);
         backButton.setPosition(Picture.Position.BOTTOM);
         backButton.setPosition(Picture.Position.RIGHT);
-        inputProcessor.addButton(backButton);
+        backButton.setSound(Assets.click);
+        inputProcessor.addView(backButton);
     }
 
     @Override
@@ -85,8 +90,28 @@ public class GameScreen implements Screen, ButtonsInputProcessor.OnClickListener
     public void dispose() {
     }
 
-    @Override
-    public void onClick(Button button) {
-        game.setScreen(new MainMenuScreen(game));
-    }
+
+    private ButtonClickListener buttonClickListener = new ButtonClickListener() {
+        @Override
+        public void touchUp(View view) {
+            if (view != null) {
+                if (view.id == backButton.id) {
+                    backButton.playSound();
+                    game.setScreen(new MainMenuScreen(game));
+                }
+            }
+        }
+
+        @Override
+        public void touchDown(View view) {
+
+        }
+    };
+
+    private FieldClickListener fieldClickListener = new FieldClickListener() {
+        @Override
+        public void onClick(View view, int row, int column) {
+            Log.d("TEST", "row: " + String.valueOf(row) + " column: " + String.valueOf(column));
+        }
+    };
 }

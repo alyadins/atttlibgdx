@@ -1,12 +1,12 @@
 package ru.petrsu.attt;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import ru.petrsu.attt.input.MyInputProcessor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,7 +47,6 @@ public class Assets {
     public static final int screenHeight = Gdx.graphics.getHeight();
     public static float widthRatio = (float)screenWidth / (float)VIRTUAL_WIDTH;
     public static float heightRatio = (float)screenHeight/ (float)VIRTUAL_HEIGHT;
-
 
     public static void load() {
         loadTextures();
