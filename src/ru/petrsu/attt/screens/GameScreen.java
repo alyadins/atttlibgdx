@@ -160,7 +160,6 @@ public class GameScreen implements Screen {
             if (activeRow != row || activeColumn != column) {
                 field.smallFields.get(activeRow * 3 + activeColumn).blink();
             } else { // user click on right field
-                field.smallFields.get(activeRow * 3 + column).setNormal();
                 setZoomedField(row, column);
             }
         } else {
@@ -171,6 +170,7 @@ public class GameScreen implements Screen {
 
     private void zoomedFieldClick(View view, int row, int column) {
         if (chechCell(row, column)) {
+            field.smallFields.get(model.activeFieldRow * 3 + model.activeFieldColumn).setNormal();
             if (currentPlayer == crossPlayer) {
                 model.update(SmallFieldModel.CROSS, row, column);
                 currentPlayer = zeroPlayer;
