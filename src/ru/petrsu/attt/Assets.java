@@ -33,9 +33,9 @@ public class Assets {
     public static TextureRegion helpPressed;
     public static TextureRegion bigField;
     public static TextureRegion smallFeild;
-    public static TextureRegion cros;
+    public static TextureRegion cross;
     public static TextureRegion zero;
-    public static TextureRegion bigCros;
+    public static TextureRegion bigCross;
     public static TextureRegion bigZero;
 
     //fonts
@@ -75,9 +75,9 @@ public class Assets {
         helpPressed = atlas.findRegion("help_pressed");
         bigField = atlas.findRegion("big_field");
         smallFeild = atlas.findRegion("small_field");
-        cros = atlas.findRegion("cros");
+        cross = atlas.findRegion("cros");
         zero = atlas.findRegion("zero");
-        bigCros = atlas.findRegion("big_cros");
+        bigCross = atlas.findRegion("big_cros");
         bigZero = atlas.findRegion("big_zero");
     }
 

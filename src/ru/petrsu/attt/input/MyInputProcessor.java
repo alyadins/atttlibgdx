@@ -18,6 +18,7 @@ public class MyInputProcessor implements InputProcessor {
     private List<View> views;
     private ButtonClickListener buttonClickListener = null;
     private FieldClickListener fieldClickListener = null;
+    boolean isViewFound = false;
 
     public MyInputProcessor() {
         views = new ArrayList<View>();
@@ -52,14 +53,17 @@ public class MyInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        for (View i : views) {
-            switch (i.type) {
-                case FIELD:
-                    fieldTouchUp(i, screenX, screenY);
-                    break;
-                case BUTTON:
-                    buttonTouchUp(i, screenX, screenY);
-                    break;
+        for (View v : views) {
+            if (v.isShown) {
+                if (v.type == View.Type.FIELD) {
+                    if (fieldTouchUp(v, screenX, screenY)) {
+                        break;
+                    }
+                } else if (v.type == View.Type.BUTTON) {
+                    if (buttonTouchUp(v, screenX, screenY)) {
+                        break;
+                    }
+                }
             }
         }
         buttonClickListener.touchUp(null);
@@ -86,48 +90,59 @@ public class MyInputProcessor implements InputProcessor {
         views.add(view);
     }
 
-    private void fieldTouchUp(View field, int screenX, int screenY) {
+    public void removeView(View view) {
+        views.remove(view) ;
+    }
+
+    private boolean fieldTouchUp(View field, int screenX, int screenY) {
         int row = 0;
         int column = 0;
         if (Assets.inBounds(screenX, screenY, field.x, field.y, field.width, field.height)) {
             column = (int) ((screenX - field.x) * 3 / field.width);
-            row =  (int) ((screenY - field.y) * 3 / field.height);
+            row = (int) ((screenY - field.y) * 3 / field.height);
             if (fieldClickListener != null) {
                 fieldClickListener.onClick(field, row, column);
+                return true;
             }
+
         }
+        return  false;
     }
 
-    private void buttonTouchUp(View button, int screenX, int screenY) {
+    private boolean buttonTouchUp(View button, int screenX, int screenY) {
         int clickedY = Assets.screenHeight - screenY;
         if (Assets.inBounds(screenX, clickedY, button.x, button.y, button.width, button.height)) {
             if (buttonClickListener != null) {
                 buttonClickListener.touchUp(button);
+                return true;
             }
         }
+        return false;
     }
 
     private void buttonTouchDown(View button, int screenX, int screenY) {
         int clickedY = Assets.screenHeight - screenY;
         if (Assets.inBounds(screenX, clickedY, button.x, button.y, button.width, button.height)) {
-            if (buttonClickListener !=null) {
+            if (buttonClickListener != null) {
                 buttonClickListener.touchDown(button);
             }
         }
     }
 
-    public interface ButtonClickListener {
-        public void touchUp(View view);
-        public void touchDown(View view);
-    }
+public interface ButtonClickListener {
+    public void touchUp(View view);
+
+    public void touchDown(View view);
+}
 
     public void setButtonClickListener(ButtonClickListener listener) {
         this.buttonClickListener = listener;
     }
 
-    public interface FieldClickListener {
-        public void onClick(View view, int row, int column);
-    }
+public interface FieldClickListener {
+    public void onClick(View view, int row, int column);
+
+}
 
     public void setFieldClickListener(FieldClickListener listener) {
         this.fieldClickListener = listener;

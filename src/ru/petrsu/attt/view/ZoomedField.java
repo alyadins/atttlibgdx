@@ -7,7 +7,6 @@ import ru.petrsu.attt.model.SmallFieldModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,44 +18,32 @@ import java.util.Random;
 public class ZoomedField extends View {
     SmallFieldModel model;
     Sprite field;
-    List<CrosZero> crosZeros;
+    List<CrossZero> crossZeros;
 
-    Random random = new Random();
-
-    public ZoomedField(Sprite field, SmallFieldModel model) {
+    public ZoomedField(SmallFieldModel model, Sprite field) {
         super(field.getWidth(), field.getHeight());
         this.model = model;
         this.type = Type.FIELD;
-        crosZeros = new ArrayList<CrosZero>();
+        crossZeros = new ArrayList<CrossZero>();
         this.field = field;
         initCrosZeros();
     }
 
     private void initCrosZeros() {
-        for (int i = 0; i < 9; i ++) {
-            crosZeros.add(new CrosZero(width / 3, height / 3, CrosZero.Type.NONE));
-            crosZeros.get(i).setSprites(new Sprite(Assets.bigCros),
+        for (int i = 0; i < 9; i++) {
+            crossZeros.add(new CrossZero(width / 3, height / 3, CrossZero.Cell.NONE));
+            crossZeros.get(i).setSprites(new Sprite(Assets.bigCross),
                     new Sprite(Assets.bigZero));
-            CrosZero cz = crosZeros.get(i);
-            int s = random.nextInt(3);
-            switch (s) {
-                case 0:
-                    cz.setType(CrosZero.Type.NONE);
-                    break;
-                case 1:
-                    cz.setType(CrosZero.Type.CROS);
-                    break;
-                case 2:
-                    cz.setType(CrosZero.Type.ZERO);
-            }
         }
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        field.draw(spriteBatch);
-        for (int i = 0; i < 9; i++) {
-            crosZeros.get(i).draw(spriteBatch);
+        if (isShown) {
+            field.draw(spriteBatch);
+            for (int i = 0; i < 9; i++) {
+                crossZeros.get(i).draw(spriteBatch);
+            }
         }
     }
 
@@ -65,11 +52,26 @@ public class ZoomedField extends View {
         field.setPosition(x, y);
         field.setSize(width, height);
         for (int i = 0; i < 9; i++) {
-            CrosZero cz = crosZeros.get(i);
-            cz.setPosition(x + (width / 3) * (i / 3),
-                    y + (height / 3) * (i % 3));
+            CrossZero cz = crossZeros.get(i);
+            cz.setPosition(x + (width / 3) * (i % 3),
+                    y + (height / 3) * (2 -(i / 3)));
             cz.setAbsoluteSize(width / 3, height / 3);
+            switch (model.cells.get(i)) {
+                case SmallFieldModel.CROSS:
+                    cz.setCell(CrossZero.Cell.CROSS);
+                    break;
+                case SmallFieldModel.ZER0:
+                    cz.setCell(CrossZero.Cell.ZERO);
+                    break;
+                case SmallFieldModel.NONE:
+                    cz.setCell(CrossZero.Cell.NONE);
+                    break;
+            }
             cz.update(delta);
         }
+    }
+
+    public void setModel(SmallFieldModel model) {
+        this.model = model;
     }
 }

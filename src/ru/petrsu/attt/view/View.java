@@ -37,6 +37,7 @@ public abstract class View {
     public Type type = Type.VIEW;
     private static int idCounter = 0;
     public  int id;
+    public boolean isShown = true;
     private int screenWidth = Gdx.graphics.getWidth();
     private int screenHeight = Gdx.graphics.getHeight();
 
@@ -100,6 +101,14 @@ public abstract class View {
 
     public void setY(float y) {
         this.y =  y;
+    }
+
+    public void show() {
+        isShown = true;
+    }
+
+    public void hide() {
+        isShown = false;
     }
 
     public abstract void draw(SpriteBatch spriteBatch);

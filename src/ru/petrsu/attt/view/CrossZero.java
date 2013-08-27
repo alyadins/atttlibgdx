@@ -12,36 +12,36 @@ import ru.petrsu.attt.Assets;
  * Time: 10:59 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CrosZero extends View {
-    enum Type {
-        CROS,
+public class CrossZero extends View {
+    public enum Cell {
+        CROSS,
         ZERO,
         NONE
     }
 
-    private Sprite cros = new Sprite(Assets.cros);
+    private Sprite cross = new Sprite(Assets.cross);
     private Sprite zero = new Sprite(Assets.zero);
     private Sprite sprite;
     private Color color = Color.BLACK;
-    public Type type = Type.NONE;
+    public Cell cell = Cell.NONE;
 
-    public CrosZero(float width, float height, Type type) {
+    public CrossZero(float width, float height, Cell cell) {
         super(width, height);
-        this.type = type;
-        setType(type);
+        this.cell = cell;
+        setCell(cell);
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        if (type != Type.NONE)
+        if (cell != Cell.NONE)
             sprite.draw(spriteBatch);
     }
 
     @Override
     public void update(float delta) {
-        cros.setSize(width, height);
-        cros.setPosition(x, y);
-        cros.setColor(color);
+        cross.setSize(width, height);
+        cross.setPosition(x, y);
+        cross.setColor(color);
         zero.setSize(width, height);
         zero.setPosition(x, y);
         zero.setColor(color);
@@ -51,21 +51,21 @@ public class CrosZero extends View {
         this.color = color;
     }
 
-    public void setSprites(Sprite cros, Sprite zero) {
-        this.cros = cros;
+    public void setSprites(Sprite cross, Sprite zero) {
+        this.cross = cross;
         this.zero = zero;
     }
 
-    public void setType(Type type) {
-        switch (type) {
-            case CROS:
-                sprite = cros;
+    public void setCell(Cell cell) {
+        switch (cell) {
+            case CROSS:
+                sprite = cross;
                 break;
             case ZERO:
                 sprite = zero;
                 break;
         }
 
-        this.type = type;
+        this.cell = cell;
     }
 }

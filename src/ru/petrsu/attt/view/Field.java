@@ -32,17 +32,19 @@ public class Field extends View {
         smallField = new Sprite(Assets.smallFeild);
         smallFields = new ArrayList<SmallField>();
         for (int i = 0; i < 9; i++) {
-            smallFields.add(new SmallField(model.smallFieldModels.get(i), width / 3, height / 3));
+            smallFields.add(new SmallField(model.sfs.get(i), width / 3, height / 3));
         }
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        for (int i = 0; i < 9; i++) {
-            smallFields.get(i).draw(spriteBatch);
+        if (isShown) {
+            for (int i = 0; i < 9; i++) {
+                smallFields.get(i).draw(spriteBatch);
+            }
+            field.setColor(Color.GREEN);
+            field.draw(spriteBatch);
         }
-        field.setColor(Color.GREEN);
-        field.draw(spriteBatch);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class Field extends View {
         for (int i = 0; i < 9; i++) {
             SmallField sf = smallFields.get(i);
             sf.setPosition(x + (width / 3) * (i % 3),
-                    y + (height / 3) * (2 - (i / 3)));
+                    y + (height / 3) * (2 -(i / 3)));
             sf.setAbsoluteSize(width / 3, height / 3);
             sf.update(delta);
         }

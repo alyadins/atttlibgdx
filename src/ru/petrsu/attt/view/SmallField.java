@@ -22,7 +22,7 @@ public class SmallField extends View {
 
     SmallFieldModel model;
     Sprite smallField;
-    List<CrosZero> crosZeros;
+    List<CrossZero> crossZeros;
     Color currentColor;
     Color color = Color.LIGHT_GRAY;
 
@@ -33,22 +33,23 @@ public class SmallField extends View {
     public SmallField(SmallFieldModel model, float width, float height) {
         super(width, height);
         this.type = Type.FIELD;
+        this.model = model;
         smallField = new Sprite(Assets.smallFeild);
         calculateSpriteSizes(smallField);
-        crosZeros = new ArrayList<CrosZero>();
+        crossZeros = new ArrayList<CrossZero>();
         initCrosZeros();
     }
 
     private void initCrosZeros() {
         for (int i = 0; i < 9; i++) {
-            crosZeros.add(new CrosZero(width / 3, height / 3, CrosZero.Type.NONE));
+            crossZeros.add(new CrossZero(width / 3, height / 3, CrossZero.Cell.NONE));
         }
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
         for (int i = 0; i < 9; i++) {
-            crosZeros.get(i).draw(spriteBatch);
+            crossZeros.get(i).draw(spriteBatch);
         }
         smallField.draw(spriteBatch);
     }
@@ -60,19 +61,33 @@ public class SmallField extends View {
         smallField.setSize(width, height);
         smallField.setColor(color);
         for (int i = 0; i < 9; i++) {
-            CrosZero cz = crosZeros.get(i);
-            cz.setPosition(x + (width / 3) * (i / 3),
-                    height - (y + (height / 3) * (i % 3)));
+            CrossZero cz = crossZeros.get(i);
+            cz.setPosition(x + (width / 3) * (i % 3),
+                    y + (height / 3) * (2 -(i / 3)));
             cz.setAbsoluteSize(width / 3, height / 3);
             cz.update(delta);
+            switch (model.cells.get(i)) {
+                case SmallFieldModel.CROSS:
+                    cz.setCell(CrossZero.Cell.CROSS);
+                    break;
+                case SmallFieldModel.ZER0:
+                    cz.setCell(CrossZero.Cell.ZERO);
+                    break;
+                case SmallFieldModel.NONE:
+                    cz.setCell(CrossZero.Cell.NONE);
+                    break;
+            }
         }
     }
 
     public void blink() {
-        //save color
-        currentColor = color;
-        isBlinked = true;
+        if (!isBlinked) {      //lock for other blinks
+            //save color
+            currentColor = color;
+            isBlinked = true;
+        }
     }
+
     private void blink(float delta) {
         if (isBlinked) {
             if (timer > BLINKED_TIME / (NUMBER_OF_BLINKES * 2)) {
@@ -96,5 +111,13 @@ public class SmallField extends View {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void setActive() {
+        this.color = Color.RED;
+    }
+
+    public void setNormal() {
+        this.color = Color.LIGHT_GRAY;
     }
 }
