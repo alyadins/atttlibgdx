@@ -19,6 +19,7 @@ public class Assets {
     public static final int VIRTUAL_HEIGHT = 1280;
     public static final String SETTINGS = "settings";
     public static final String SOUND = "sound";
+    public static final float FADE_VALUE = 0.2f;
     //Textures
     public static Texture background;
     public static TextureRegion logo;

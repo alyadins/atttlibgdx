@@ -120,4 +120,25 @@ public class SmallField extends View {
     public void setNormal() {
         this.color = Color.LIGHT_GRAY;
     }
+
+    public void fade() {
+        for(CrossZero cz : crossZeros) {
+            cz.fade();
+        }
+        Color newColor = new Color(this.color.r,
+                this.color.g,
+                this.color.b,
+                Assets.FADE_VALUE);
+        setColor(newColor);
+    }
+    public void unfade() {
+        for (CrossZero cz : crossZeros) {
+            cz.unFade();
+        }
+        Color newColor = new Color(this.color.r,
+                this.color.g,
+                this.color.b,
+                1);
+        setColor(newColor);
+    }
 }

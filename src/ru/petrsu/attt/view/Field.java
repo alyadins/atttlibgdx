@@ -16,8 +16,7 @@ public class Field extends View {
     Sprite smallField;
     public List<SmallField> smallFields;
 
-
-    private MyInputProcessor inputProcessor = null;
+    private Color color = Color.BLACK;
 
     public Field(FieldModel model, Sprite fieldSprite) {
         super(fieldSprite.getWidth(), fieldSprite.getHeight());
@@ -38,33 +37,39 @@ public class Field extends View {
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        if (isShown) {
-            for (int i = 0; i < 9; i++) {
-                smallFields.get(i).draw(spriteBatch);
-            }
-            field.setColor(Color.GREEN);
-            field.draw(spriteBatch);
+        for (int i = 0; i < 9; i++) {
+            smallFields.get(i).draw(spriteBatch);
         }
+        field.draw(spriteBatch);
     }
 
     @Override
     public void update(float delta) {
         field.setPosition(x, y);
         field.setSize(width, height);
+        field.setColor(color);
         for (int i = 0; i < 9; i++) {
             SmallField sf = smallFields.get(i);
             sf.setPosition(x + (width / 3) * (i % 3),
-                    y + (height / 3) * (2 -(i / 3)));
+                    y + (height / 3) * (2 - (i / 3)));
             sf.setAbsoluteSize(width / 3, height / 3);
             sf.update(delta);
         }
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
-    public void setInputProcessor(MyInputProcessor inputProcessor) {
-        this.inputProcessor = inputProcessor;
-        for (SmallField i : smallFields) {
-            inputProcessor.addView(i);
+    public void fade() {
+        for (SmallField sf : smallFields) {
+            sf.fade();
+        }
+    }
+
+    public void unFade() {
+        for (SmallField sf : smallFields) {
+            sf.unfade();
         }
     }
 }

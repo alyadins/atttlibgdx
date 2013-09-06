@@ -1,5 +1,6 @@
 package ru.petrsu.attt.view;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
@@ -19,6 +20,8 @@ public class ZoomedField extends View {
     SmallFieldModel model;
     Sprite field;
     List<CrossZero> crossZeros;
+    private boolean isRenderer = true;
+    private Color color = Color.BLACK;
 
     public ZoomedField(SmallFieldModel model, Sprite field) {
         super(field.getWidth(), field.getHeight());
@@ -39,22 +42,23 @@ public class ZoomedField extends View {
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        if (isShown) {
-            field.draw(spriteBatch);
-            for (int i = 0; i < 9; i++) {
-                crossZeros.get(i).draw(spriteBatch);
+        if (isRenderer) {
+                field.draw(spriteBatch);
+                for (int i = 0; i < 9; i++) {
+                    crossZeros.get(i).draw(spriteBatch);
+                }
             }
-        }
     }
 
     @Override
     public void update(float delta) {
         field.setPosition(x, y);
         field.setSize(width, height);
+        field.setColor(color);
         for (int i = 0; i < 9; i++) {
             CrossZero cz = crossZeros.get(i);
             cz.setPosition(x + (width / 3) * (i % 3),
-                    y + (height / 3) * (2 -(i / 3)));
+                    y + (height / 3) * (2 - (i / 3)));
             cz.setAbsoluteSize(width / 3, height / 3);
             switch (model.cells.get(i)) {
                 case SmallFieldModel.CROSS:
@@ -73,5 +77,17 @@ public class ZoomedField extends View {
 
     public void setModel(SmallFieldModel model) {
         this.model = model;
+    }
+
+    public boolean isRenderer() {
+        return isRenderer;
+    }
+
+    public void setRenderer(boolean renderer) {
+        isRenderer = renderer;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

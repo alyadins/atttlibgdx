@@ -70,7 +70,8 @@ public class GameScreen implements Screen {
         spriteBatch.begin();
         background.draw(spriteBatch);
         backButton.draw(spriteBatch);
-        currentField.draw(spriteBatch);
+        field.draw(spriteBatch);
+        zoomedField.draw(spriteBatch);
         spriteBatch.end();
     }
 
@@ -169,7 +170,7 @@ public class GameScreen implements Screen {
     }
 
     private void zoomedFieldClick(View view, int row, int column) {
-        if (chechCell(row, column)) {
+        if (checkCell(row, column)) {
             field.smallFields.get(model.activeFieldRow * 3 + model.activeFieldColumn).setNormal();
             if (currentPlayer == crossPlayer) {
                 model.update(SmallFieldModel.CROSS, row, column);
@@ -183,7 +184,7 @@ public class GameScreen implements Screen {
         }
     }
 
-    private boolean chechCell(int row, int column) {
+    private boolean checkCell(int row, int column) {
         int aRow = model.activeFieldRow;
         int aColumn = model.activeFieldColumn;
         if (SmallFieldModel.NONE == model.sfs.get(aRow * 3 + aColumn).
@@ -203,12 +204,15 @@ public class GameScreen implements Screen {
     }
 
     private void changeField(View field) {
-        currentField = field;
         if (field.id == this.field.id) {
+            this.field.unFade();
+            zoomedField.setRenderer(false);
             Gdx.input.setInputProcessor(fieldInput);
         }
 
         if (field.id == this.zoomedField.id) {
+            this.field.fade();
+            zoomedField.setRenderer(true);
             Gdx.input.setInputProcessor(zoomedFieldInput);
         }
     }

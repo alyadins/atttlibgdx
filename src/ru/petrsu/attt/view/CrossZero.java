@@ -68,4 +68,20 @@ public class CrossZero extends View {
 
         this.cell = cell;
     }
+
+    public void fade() {
+        Color newColor = new Color(this.color.r,
+                this.color.g,
+                this.color.b,
+                Assets.FADE_VALUE);
+        setColor(newColor);
+    }
+
+    public void unFade() {
+        Color newColor = new Color(this.color.r,
+                this.color.g,
+                this.color.b,
+                1);
+        setColor(newColor);
+    }
 }
