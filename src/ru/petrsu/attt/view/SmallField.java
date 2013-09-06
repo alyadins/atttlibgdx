@@ -23,11 +23,13 @@ public class SmallField extends View {
     SmallFieldModel model;
     Sprite smallField;
     List<CrossZero> crossZeros;
-    Color currentColor;
-    Color color = Color.LIGHT_GRAY;
+    Color currentColor = Color.LIGHT_GRAY;
+    Color regularColor = Color.LIGHT_GRAY;
+    Color activeColor = Color.RED;
+    Color tmpColor;
 
     boolean isBlinked = false;
-    int numberOfBlinkes = 0;
+    int numberOfBlinkers = 0;
     float timer;
 
     public SmallField(SmallFieldModel model, float width, float height) {
@@ -59,11 +61,11 @@ public class SmallField extends View {
         blink(delta);
         smallField.setPosition(x, y);
         smallField.setSize(width, height);
-        smallField.setColor(color);
+        smallField.setColor(currentColor);
         for (int i = 0; i < 9; i++) {
             CrossZero cz = crossZeros.get(i);
             cz.setPosition(x + (width / 3) * (i % 3),
-                    y + (height / 3) * (2 -(i / 3)));
+                    y + (height / 3) * (2 - (i / 3)));
             cz.setAbsoluteSize(width / 3, height / 3);
             cz.update(delta);
             switch (model.cells.get(i)) {
@@ -82,8 +84,8 @@ public class SmallField extends View {
 
     public void blink() {
         if (!isBlinked) {      //lock for other blinks
-            //save color
-            currentColor = color;
+            //save current
+            tmpColor = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a);
             isBlinked = true;
         }
     }
@@ -91,17 +93,15 @@ public class SmallField extends View {
     private void blink(float delta) {
         if (isBlinked) {
             if (timer > BLINKED_TIME / (NUMBER_OF_BLINKES * 2)) {
-                if (numberOfBlinkes % 2 == 1) {
-                    color = Color.RED;
+                if (numberOfBlinkers % 2 == 1) {
+                    currentColor = activeColor;
                 } else {
-                    color = Color.LIGHT_GRAY;
+                    currentColor = regularColor;
                 }
-                numberOfBlinkes++;
+                numberOfBlinkers++;
                 timer = 0;
-                if (numberOfBlinkes > NUMBER_OF_BLINKES * 2 - 1) {
-                    isBlinked = false;
-                    numberOfBlinkes = 0;
-                    color = currentColor;
+                if (numberOfBlinkers > NUMBER_OF_BLINKES * 2 - 1) {
+                    stopBlink();
                 }
             } else {
                 timer += delta;
@@ -109,35 +109,57 @@ public class SmallField extends View {
         }
     }
 
+
+    public void checkCaptured() {
+        if (model.isFinished) {
+            if (model.capturedBy == SmallFieldModel.CROSS) {
+                regularColor = Assets.crossColor;
+                currentColor = regularColor;
+            } else if (model.capturedBy == SmallFieldModel.ZER0) {
+                regularColor = Assets.zeroColor;
+                currentColor = regularColor;
+            }
+        }
+    }
+
+    public void stopBlink() {
+        if (isBlinked) {
+            isBlinked = false;
+            numberOfBlinkers = 0;
+            currentColor = tmpColor;
+        }
+    }
+
     public void setColor(Color color) {
-        this.color = color;
+        this.currentColor = color;
     }
 
     public void setActive() {
-        this.color = Color.RED;
+        this.currentColor = activeColor;
     }
 
     public void setNormal() {
-        this.color = Color.LIGHT_GRAY;
+        this.currentColor = regularColor;
     }
 
     public void fade() {
-        for(CrossZero cz : crossZeros) {
+        for (CrossZero cz : crossZeros) {
             cz.fade();
         }
-        Color newColor = new Color(this.color.r,
-                this.color.g,
-                this.color.b,
+        Color newColor = new Color(this.currentColor.r,
+                this.currentColor.g,
+                this.currentColor.b,
                 Assets.FADE_VALUE);
         setColor(newColor);
     }
+
     public void unfade() {
         for (CrossZero cz : crossZeros) {
             cz.unFade();
         }
-        Color newColor = new Color(this.color.r,
-                this.color.g,
-                this.color.b,
+        Color newColor = new Color(this.currentColor.r,
+                this.currentColor.g,
+                this.currentColor.b,
                 1);
         setColor(newColor);
     }

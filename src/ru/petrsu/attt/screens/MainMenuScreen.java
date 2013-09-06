@@ -4,6 +4,7 @@ import android.util.Log;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -89,41 +90,48 @@ public class MainMenuScreen implements Screen {
 
     private void showMenuButtons() {
         //start button
-        startButton = new Button(Assets.startButton);
+        Sprite startButtonSprite = new Sprite(Assets.startButton);
+        startButton = new Button(startButtonSprite, Color.BLACK);
         startButton.setPosition(Position.CENTER_VERTICAL);
         startButton.setY(Assets.heightRatio * 662);
-        startButton.setClickedTexture(Assets.startPressed);
+        startButton.setPressedColor(Color.LIGHT_GRAY);
         startButton.setSound(Assets.click);
         inputProcessor.addView(startButton);
 
         //high scores button
-        highscoresButton = new Button(Assets.highscoresButton);
+        Sprite highscoresButtonSprite = new Sprite(Assets.highscoresButton);
+        highscoresButton = new Button(highscoresButtonSprite, Color.BLACK);
         highscoresButton.setPosition(Position.CENTER_VERTICAL);
         highscoresButton.setY(Assets.heightRatio * 480);
-        highscoresButton.setClickedTexture(Assets.highcoresPressed);
+        highscoresButton.setPressedColor(Color.LIGHT_GRAY);
         highscoresButton.setSound(Assets.click);
         inputProcessor.addView(highscoresButton);
 
         //help button
-        helpButton = new Button(Assets.helpButton);
+        Sprite helpButtonSprite = new Sprite(Assets.helpButton);
+        helpButton = new Button(helpButtonSprite, Color.BLACK);
         helpButton.setPosition(Position.CENTER_VERTICAL);
         helpButton.setY(Assets.heightRatio * 302);
-        helpButton.setClickedTexture(Assets.helpPressed);
+        helpButton.setPressedColor(Color.LIGHT_GRAY);
         helpButton.setSound(Assets.click);
         inputProcessor.addView(helpButton);
 
         //settings button
-        settingsButton = new Button(Assets.settingsButton);
+        Sprite settingsButtonSprite = new Sprite(Assets.settingsButton);
+        settingsButton = new Button(settingsButtonSprite);
         settingsButton.setPosition(Position.BOTTOM);
         settingsButton.setPosition(Position.RIGHT);
         settingsButton.setSound(Assets.click);
         inputProcessor.addView(settingsButton);
 
+
+        Sprite soundOnButtonSprite = new Sprite(Assets.soundOnButton);
+        Sprite soundOffButtonSprite = new Sprite(Assets.soundOffButton);
         //sound button
         if (Settings.isSoundEnabled()) {
-            soundButton = new Button(Assets.soundOnButton);
+            soundButton = new Button(soundOnButtonSprite);
         } else {
-            soundButton = new Button(Assets.soundOffButton);
+            soundButton = new Button(soundOffButtonSprite);
         }
         soundButton.setPosition(Position.BOTTOM);
         soundButton.setPosition(Position.LEFT);
@@ -168,9 +176,9 @@ public class MainMenuScreen implements Screen {
                     soundButton.playSound();
                     Settings.setSoundEnabled(!Settings.isSoundEnabled());
                     if (Settings.isSoundEnabled()) {
-                        soundButton.setNormalTexture(Assets.soundOnButton);
+                        soundButton.setTexture(Assets.soundOnButton);
                     } else {
-                        soundButton.setNormalTexture(Assets.soundOffButton);
+                        soundButton.setTexture(Assets.soundOffButton);
                     }
                 }
             } else {

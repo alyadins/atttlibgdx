@@ -2,6 +2,7 @@ package ru.petrsu.attt;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -29,15 +30,13 @@ public class Assets {
     public static TextureRegion soundOnButton;
     public static TextureRegion soundOffButton;
     public static TextureRegion settingsButton;
-    public static TextureRegion highcoresPressed;
-    public static TextureRegion startPressed;
-    public static TextureRegion helpPressed;
     public static TextureRegion bigField;
     public static TextureRegion smallFeild;
     public static TextureRegion cross;
     public static TextureRegion zero;
     public static TextureRegion bigCross;
     public static TextureRegion bigZero;
+    public static TextureRegion back;
 
     //fonts
     public static BitmapFont textFont;
@@ -49,6 +48,9 @@ public class Assets {
     public static final int screenHeight = Gdx.graphics.getHeight();
     public static float widthRatio = (float)screenWidth / (float)VIRTUAL_WIDTH;
     public static float heightRatio = (float)screenHeight/ (float)VIRTUAL_HEIGHT;
+
+    public static final Color crossColor = new Color(0.6f, 0.4f,0.8f, 1.0f);
+    public static final Color zeroColor = new Color(0f, 0.278f, 0.671f, 1.0f);
 
     public static void load() {
         loadTextures();
@@ -71,15 +73,13 @@ public class Assets {
         soundOnButton = atlas.findRegion("speaker_on");
         soundOffButton = atlas.findRegion("speaker_off");
         settingsButton = atlas.findRegion("settings");
-        startPressed = atlas.findRegion("start_pressed");
-        highcoresPressed = atlas.findRegion("highscores_pressed");
-        helpPressed = atlas.findRegion("help_pressed");
         bigField = atlas.findRegion("big_field");
         smallFeild = atlas.findRegion("small_field");
         cross = atlas.findRegion("cros");
         zero = atlas.findRegion("zero");
         bigCross = atlas.findRegion("big_cros");
         bigZero = atlas.findRegion("big_zero");
+        back = atlas.findRegion("back_button");
     }
 
     private static void loadFonts() {

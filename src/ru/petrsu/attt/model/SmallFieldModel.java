@@ -1,6 +1,7 @@
 package ru.petrsu.attt.model;
 
 
+import android.util.Log;
 import ru.petrsu.attt.view.CrossZero;
 import ru.petrsu.attt.view.CrossZero.Cell;
 
@@ -22,11 +23,9 @@ public class SmallFieldModel {
     public static final int NONE = 2;
 
     public boolean isFinished = false;
+    public boolean isFull = false;
     public int capturedBy;
     public List<Integer> cells;
-
-
-    Random random = new Random();
 
     public SmallFieldModel() {
         cells = new ArrayList<Integer>();
@@ -37,32 +36,43 @@ public class SmallFieldModel {
 
     public void update(int cell, int row, int column) {
         cells.set(row * 3 + column, cell);
-        //isFinished = checkFinish();
+        isFinished = checkFinish();
+        Log.d("TEST", "Is this field finished? " + String.valueOf(isFinished));
+        isFull = checkFull();
     }
 
-//    private boolean checkFinish() {
-//        for (int i = 0; i < 8; i++) {
-//            if (checkFinish(FieldModel.finishCombination[i])) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    private boolean checkFinish(int[] combination) {
-//        if (checkFinish(cells.get(combination[0]), cells.get(combination[1]), cells.get(combination[2]))) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    private boolean checkFinish(int first, int second, int third) {
-//        if ((first == second) && (second == third)) {
-//            capturedBy = first;
-//            return  true;
-//        } else {
-//            return false;
-//        }
-//    }
+    private boolean checkFinish() {
+        for (int i = 0; i < 8; i++) {
+            if (checkFinish(FieldModel.finishCombination[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkFinish(int[] combination) {
+        if (checkFinish(cells.get(combination[0]), cells.get(combination[1]), cells.get(combination[2]))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean checkFinish(int first, int second, int third) {
+        if ((first == second) && (second == third) && (first != NONE) && (second != NONE) && (third != NONE)) {
+            capturedBy = first;
+            return  true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean checkFull() {
+        for (int i = 0; i < 9; i++) {
+            if (cells.get(i) == NONE) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

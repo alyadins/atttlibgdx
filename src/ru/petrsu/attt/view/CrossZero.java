@@ -22,7 +22,8 @@ public class CrossZero extends View {
     private Sprite cross = new Sprite(Assets.cross);
     private Sprite zero = new Sprite(Assets.zero);
     private Sprite sprite;
-    private Color color = Color.BLACK;
+    private Color crossColor = Assets.crossColor;
+    private Color zeroColor = Assets.zeroColor;
     public Cell cell = Cell.NONE;
 
     public CrossZero(float width, float height, Cell cell) {
@@ -41,14 +42,15 @@ public class CrossZero extends View {
     public void update(float delta) {
         cross.setSize(width, height);
         cross.setPosition(x, y);
-        cross.setColor(color);
+        cross.setColor(crossColor);
         zero.setSize(width, height);
         zero.setPosition(x, y);
-        zero.setColor(color);
+        zero.setColor(zeroColor);
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColor(Color crossColor, Color zeroColor) {
+        this.zeroColor = zeroColor;
+        this.crossColor = crossColor;
     }
 
     public void setSprites(Sprite cross, Sprite zero) {
@@ -70,18 +72,14 @@ public class CrossZero extends View {
     }
 
     public void fade() {
-        Color newColor = new Color(this.color.r,
-                this.color.g,
-                this.color.b,
-                Assets.FADE_VALUE);
-        setColor(newColor);
+        Color newCrossColor = new Color(crossColor.r, crossColor.g, crossColor.b, Assets.FADE_VALUE);
+        Color newZeroColor = new Color(zeroColor.r, zeroColor.g, zeroColor.b, Assets.FADE_VALUE);
+        setColor(newCrossColor, newZeroColor);
     }
 
     public void unFade() {
-        Color newColor = new Color(this.color.r,
-                this.color.g,
-                this.color.b,
-                1);
-        setColor(newColor);
+        Color newCrossColor = new Color(crossColor.r, crossColor.g, crossColor.b, 1);
+        Color newZeroColor = new Color(zeroColor.r, zeroColor.g, zeroColor.b, 1);
+        setColor(newCrossColor, newZeroColor);
     }
 }

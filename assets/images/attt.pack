@@ -59,18 +59,11 @@ big_zero
   orig: 201, 201
   offset: 0, 0
   index: -1
-speaker_off
+back_button
   rotate: false
   xy: 606, 873
-  size: 136, 136
-  orig: 136, 136
-  offset: 0, 0
-  index: -1
-settings
-  rotate: false
-  xy: 744, 873
-  size: 136, 136
-  orig: 136, 136
+  size: 250, 136
+  orig: 250, 136
   offset: 0, 0
   index: -1
 small_field
@@ -80,9 +73,23 @@ small_field
   orig: 201, 201
   offset: 0, 0
   index: -1
-speaker_on
+speaker_off
   rotate: false
   xy: 606, 735
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 797, 329
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+speaker_on
+  rotate: false
+  xy: 797, 191
   size: 136, 136
   orig: 136, 136
   offset: 0, 0
@@ -93,27 +100,6 @@ format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 start
-  rotate: false
-  xy: 1, 277
-  size: 461, 136
-  orig: 461, 136
-  offset: 0, 0
-  index: -1
-highscores_pressed
-  rotate: false
-  xy: 1, 139
-  size: 461, 136
-  orig: 461, 136
-  offset: 0, 0
-  index: -1
-help_pressed
-  rotate: false
-  xy: 464, 277
-  size: 461, 136
-  orig: 461, 136
-  offset: 0, 0
-  index: -1
-start_pressed
   rotate: false
   xy: 1, 1
   size: 461, 136

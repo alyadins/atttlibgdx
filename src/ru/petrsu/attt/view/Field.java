@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.petrsu.attt.Assets;
-import ru.petrsu.attt.input.MyInputProcessor;
 import ru.petrsu.attt.model.FieldModel;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class Field extends View {
         smallField = new Sprite(Assets.smallFeild);
         smallFields = new ArrayList<SmallField>();
         for (int i = 0; i < 9; i++) {
-            smallFields.add(new SmallField(model.sfs.get(i), width / 3, height / 3));
+            smallFields.add(new SmallField(model.sfm.get(i), width / 3, height / 3));
         }
     }
 

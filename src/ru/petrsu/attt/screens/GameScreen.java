@@ -3,6 +3,7 @@ package ru.petrsu.attt.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,13 +24,15 @@ import ru.petrsu.attt.view.*;
  * To change this template use File | Settings | File Templates.
  */
 public class GameScreen implements Screen {
+    public static final float fieldY = Assets.heightRatio * 300;
+
     private Game game;
     private SpriteBatch spriteBatch;
 
     private Sprite background;
-    private Button backButton;
-
+    private Button settingsButton;
     private ZoomedField zoomedField;
+    private Button backButton;
     private Field field;
     private View currentField;
 
@@ -69,6 +72,7 @@ public class GameScreen implements Screen {
         zoomedField.update(delta);
         spriteBatch.begin();
         background.draw(spriteBatch);
+        settingsButton.draw(spriteBatch);
         backButton.draw(spriteBatch);
         field.draw(spriteBatch);
         zoomedField.draw(spriteBatch);
@@ -85,25 +89,35 @@ public class GameScreen implements Screen {
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Sprite fieldSprite = new Sprite(Assets.bigField);
-        View.calculateSpriteSizes(fieldSprite);
+       // View.calculateSpriteSizes(fieldSprite);
         field = new Field(model, fieldSprite);
         field.setPosition(View.Position.CENTER_VERTICAL);
-        field.setPosition(View.Position.CENTER_HORIZONTAL);
+        field.setY(fieldY);
         fieldInput.addView(field);
         currentField = field;
 
         Sprite zoomedFieldSprite = new Sprite(Assets.bigField);
-        View.calculateSpriteSizes(zoomedFieldSprite);
-        zoomedField = new ZoomedField(model.sfs.get(0), zoomedFieldSprite);
+      //  View.calculateSpriteSizes(zoomedFieldSprite);
+        zoomedField = new ZoomedField(model.sfm.get(0), zoomedFieldSprite);
         zoomedField.setPosition(View.Position.CENTER_VERTICAL);
-        zoomedField.setPosition(View.Position.CENTER_HORIZONTAL);
+        zoomedField.setY(fieldY);
         zoomedFieldInput.addView(zoomedField);
 
-        backButton = new Button(Assets.settingsButton);
-        backButton.setPosition(Picture.Position.BOTTOM);
-        backButton.setPosition(Picture.Position.RIGHT);
+
+        Sprite settingsButtonSprite = new Sprite(Assets.settingsButton);
+        settingsButton = new Button(settingsButtonSprite);
+        settingsButton.setPosition(Picture.Position.BOTTOM);
+        settingsButton.setPosition(Picture.Position.RIGHT);
+        settingsButton.setSound(Assets.click);
+        fieldInput.addView(settingsButton);
+        zoomedFieldInput.addView(settingsButton);
+
+        Sprite backButtonSprite = new Sprite(Assets.back);
+        backButton = new Button(backButtonSprite, Color.BLACK);
+        backButton.setPosition(View.Position.CENTER_VERTICAL);
+        backButton.setY(field.y - backButton.height);
         backButton.setSound(Assets.click);
-        fieldInput.addView(backButton);
+        backButton.hide();
         zoomedFieldInput.addView(backButton);
     }
 
@@ -128,9 +142,14 @@ public class GameScreen implements Screen {
         @Override
         public void touchUp(View view) {
             if (view != null) {
-                if (view.id == backButton.id) {
-                    backButton.playSound();
+                if (view.id == settingsButton.id) {
+                    settingsButton.playSound();
                     game.setScreen(new MainMenuScreen(game));
+                }
+                if (view.id == backButton.id) {
+                    if (zoomedField.isRenderer()) {
+                        changeField(field);
+                    }
                 }
             }
         }
@@ -180,25 +199,39 @@ public class GameScreen implements Screen {
                 currentPlayer = crossPlayer;
             }
             changeField(field);
-            field.smallFields.get(model.activeFieldRow * 3 + model.activeFieldColumn).setActive();
+            if (model.activeFieldRow != -1 && model.activeFieldColumn != -1) {
+                field.smallFields.get(model.activeFieldRow * 3 + model.activeFieldColumn).setActive();
+            }
         }
     }
 
+
+    /**
+     * Check cell before put cross or zero
+     *
+     * @param row
+     * @param column
+     * @return true if it is possible
+     */
     private boolean checkCell(int row, int column) {
         int aRow = model.activeFieldRow;
         int aColumn = model.activeFieldColumn;
-        if (SmallFieldModel.NONE == model.sfs.get(aRow * 3 + aColumn).
-                cells.get(row * 3 + column)) {
-            return true;
-        } else {
-            return false;
-        }
+        SmallFieldModel sfm = model.sfm.get(aRow * 3 + aColumn);
+        if (!model.sfm.get(row * 3 + column).isFull) {
+            if (SmallFieldModel.NONE == sfm.cells.get(row * 3 + column)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
     }
 
     private void setZoomedField(int row, int column) {
-        SmallFieldModel sfm = model.sfs.get(row * 3 + column);
-        if (!sfm.isFinished) {
+        field.smallFields.get(row * 3 + column).stopBlink();
+        SmallFieldModel sfm = model.sfm.get(row * 3 + column);
+        if (!sfm.isFull) {
             zoomedField.setModel(sfm);
+
             changeField(zoomedField);
         }
     }
@@ -207,11 +240,19 @@ public class GameScreen implements Screen {
         if (field.id == this.field.id) {
             this.field.unFade();
             zoomedField.setRenderer(false);
+            for (int i = 0; i < 9; i++) {
+                this.field.smallFields.get(i).checkCaptured();
+            }
+            if (model.gameOver) {
+                game.setScreen(new MainMenuScreen(game));
+            }
+            backButton.hide();
             Gdx.input.setInputProcessor(fieldInput);
         }
 
         if (field.id == this.zoomedField.id) {
             this.field.fade();
+            backButton.show();
             zoomedField.setRenderer(true);
             Gdx.input.setInputProcessor(zoomedFieldInput);
         }
